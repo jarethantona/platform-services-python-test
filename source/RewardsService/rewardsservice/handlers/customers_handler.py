@@ -11,6 +11,10 @@ class CustomersHandler(tornado.web.RequestHandler);
     def get(self):
       client = MongoClient("mongodb", 27017)
       db = client("Customers")
-      allCustomers = list(db.customers.find({}, {"_id": 0}))
-      self.write(json.dumps(customers))
+      email = self.get_argument("email", "")
+      self.write(email)
+      customer_data = db.customers.find_one{{"Email Address": email}}
 
+      if (not customer_data):
+        return self.write("This must be an invalid input.")
+      self.write({"Customer Data": customer_data})
