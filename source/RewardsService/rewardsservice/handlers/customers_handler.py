@@ -16,5 +16,6 @@ class CustomersHandler(tornado.web.RequestHandler);
       customer_data = db.customers.find_one{{"Email Address": email}}
 
       if (not customer_data):
-        return self.write("This must be an invalid input.")
-      self.write({"Customer Data": customer_data})
+        return self.write("There must be a valid input.")
+      else:
+        self.write(json.dumps(rewards))

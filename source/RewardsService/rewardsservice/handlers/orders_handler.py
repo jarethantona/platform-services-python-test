@@ -31,7 +31,7 @@ class OrdersHandler(tornado.web.RequestHandler):
     "Next Reward Tier Name": next_reward_tier_name, "Next Reward Tier Progress": progress}
     db.customers.insert(customerData)
 
-  def reward_tier(self, total_spent):
+  def reward_tier(total_spent):
     if total_spent >= 1000:
       return "J"
     elif total_spent >= 900 and total_spent < 1000:
@@ -55,7 +55,7 @@ class OrdersHandler(tornado.web.RequestHandler):
     elif total_spent < 100:
       return ""
     
-  def next_reward_tier(self, total_spent):
+  def next_reward_tier(total_spent):
      if total_spent >= 1000:
       return "J"
     elif total_spent >= 900 and total_spent < 1000:
@@ -79,14 +79,14 @@ class OrdersHandler(tornado.web.RequestHandler):
     elif total_spent < 100:
       return "A"
 
-  def next_reward_tier_name(self, next_reward_tier)
+  def next_reward_tier_name(next_reward_tier)
     if (next_reward_tier == "N/A"):
       return "N/A"
     for map in maps:
       if (map["tier"] == next_reward_tier):
         return map["reward_name"]
 
-  def next_reward_points(self, next_reward_tier):
+  def next_reward_points(next_reward_tier):
     if(next_reward_tier == "N/A"):
       return "N/A"
     for map in maps:
