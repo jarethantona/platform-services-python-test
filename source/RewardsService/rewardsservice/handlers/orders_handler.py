@@ -11,8 +11,8 @@ class OrdersHandler(tornado.web.RequestHandler):
     client = MongoClient("mongodb", 27017)
     customersdb = client["Customer"]
     
-    email = self.__getattribute__("email", "")
-    order_total = self.__getattribute__("order_total", "")
+    email = self.get_argument("email", "")
+    order_total = self.get_argument("order_total", "")
 
     reward_tier = self.reward_tier(order_total)
     reward_tier_name = self.reward_tier_name(reward_tier)
@@ -25,10 +25,11 @@ class OrdersHandler(tornado.web.RequestHandler):
 
     if (next_reward_points == "N/A"):
       progress = "N/A"
-    progress - round(float(orderTotal) / next_reward_points, 2)
-    customerData = {"Email Address": email, "Reward Points": points, "Reward Tier": reward_tier, 
-    "Reward Tier Name": reward_tier_name, "Next Reward Tier": next_reward_tier, 
-    "Next Reward Tier Name": next_reward_tier_name, "Next Reward Tier Progress": progress}
+    else:
+      progress - round(float(orderTotal) / next_reward_points, 2)
+      customerData = {"Email Address": email, "Reward Points": points, "Reward Tier": reward_tier, 
+        "Reward Tier Name": reward_tier_name, "Next Reward Tier": next_reward_tier, 
+        "Next Reward Tier Name": next_reward_tier_name, "Next Reward Tier Progress": progress}
     db.customers.insert(customerData)
 
   def reward_tier(total_spent):

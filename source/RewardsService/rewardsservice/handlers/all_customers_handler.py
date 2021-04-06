@@ -14,4 +14,5 @@ class AllCustomersHandler(tornado.web.RequestHandler);
       all_customers = list(db.customers.find({}, {"_id": 0}))
       if (len(all_customers) == 0):
           return self.write("There are no customers...")
-      self.write(json.dumps(customers)) 
+      else:
+        self.write(json.dumps(customers)) 
